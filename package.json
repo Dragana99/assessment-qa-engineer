@@ -1,8 +1,10 @@
 {
   "scripts": {
-    "cypress:open": "cypress open"
+    "cy:open": "cypress open",
+    "html:report" : "cypress run --browser chrome --headed"
   },
   "devDependencies": {
-    "cypress": "^13.6.3"
+    "cypress": "^13.6.3",
+    "cypress-mochawesome-reporter": "^3.8.1"
   }
 }

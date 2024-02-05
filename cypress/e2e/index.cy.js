@@ -14,10 +14,7 @@ describe("Landing page tests for the amount field", () => {
     //sign in button
     cy.contains("button", "Sign In");
     //message
-    cy.contains(
-      "div",
-      "For the month of January we’re hosting 10,000 coin daily roulette races. Scroll down to see more."
-    );
+    cy.contains("div", Constants.INFO_MESSAGE);
   });
 
   it("User shoud be able to enter positive numbers in amount input field and get number transformed to decimal value", () => {
@@ -25,18 +22,16 @@ describe("Landing page tests for the amount field", () => {
     cy.get(Constants.AMOUNT_INPUT_PATH).should("have.value", "");
 
     //input 30 in amount field
-    cy.get(Constants.AMOUNT_INPUT_PATH).type(30, {
-      force: true,
-    });
+    cy.inputValue(Constants.AMOUNT_INPUT_PATH, 30);
+
     //click away
-    cy.get("body").click(0, 0);
+    cy.clickAway();
     //assertion
     cy.get(Constants.AMOUNT_INPUT_PATH).should("have.value", "30.00");
 
     //input 30 in amount field with special characher +
-    cy.get(Constants.AMOUNT_INPUT_PATH)
-      .clear({ force: true })
-      .type("+30", { force: true });
+    cy.inputValue(Constants.AMOUNT_INPUT_PATH, "+30");
+
     //click away
     cy.get("body").click(0, 0);
     //assertion
@@ -48,20 +43,19 @@ describe("Landing page tests for the amount field", () => {
     cy.get(Constants.AMOUNT_INPUT_PATH).should("have.value", "");
 
     //input string in amount field
-    cy.get(Constants.AMOUNT_INPUT_PATH).type("some text", {
-      force: true,
-    });
+    cy.inputValue(Constants.AMOUNT_INPUT_PATH, "some text");
+
     //click away
-    cy.get("body").click(0, 0);
+    cy.clickAway();
+
     //assertion
     cy.get(Constants.AMOUNT_INPUT_PATH).should("have.value", "NaN");
 
     //input string with number in the input field
-    cy.get(Constants.AMOUNT_INPUT_PATH)
-      .clear({ force: true })
-      .type("stringWith890number", { force: true });
+    cy.inputValue(Constants.AMOUNT_INPUT_PATH, "stringWith890number");
+
     //click away
-    cy.get("body").click(0, 0);
+    cy.clickAway();
     //assertion
     cy.get(Constants.AMOUNT_INPUT_PATH).should("have.value", "NaN");
   });
@@ -69,12 +63,12 @@ describe("Landing page tests for the amount field", () => {
   it("User shoud be able to enter negative number in amount input field", () => {
     //input field should be empty
     cy.get(Constants.AMOUNT_INPUT_PATH).should("have.value", "");
+
     //input -30 in amount field
-    cy.get(Constants.AMOUNT_INPUT_PATH).type(-30, {
-      force: true,
-    });
+    cy.inputValue(Constants.AMOUNT_INPUT_PATH, -30);
+
     //click away
-    cy.get("body").click(0, 0);
+    cy.clickAway();
     //assertion
     cy.get(Constants.AMOUNT_INPUT_PATH).should("have.value", "-30.00");
   });
@@ -100,20 +94,17 @@ describe("Landing page tests for the amount field", () => {
     cy.get(Constants.AMOUNT_INPUT_PATH).should("have.value", "");
 
     //input special characters in amount field
-    cy.get(Constants.AMOUNT_INPUT_PATH).type("!@#$%&*/", {
-      force: true,
-    });
+    cy.inputValue(Constants.AMOUNT_INPUT_PATH, "!@#$%&*/");
+
     //click away
-    cy.get("body").click(0, 0);
+    cy.clickAway();
     //assertion
     cy.get(Constants.AMOUNT_INPUT_PATH).should("have.value", "NaN");
 
     //input .
-    cy.get(Constants.AMOUNT_INPUT_PATH)
-      .clear({ force: true })
-      .type(".", { force: true });
+    cy.inputValue(Constants.AMOUNT_INPUT_PATH, ".");
     //click away
-    cy.get("body").click(0, 0);
+    cy.clickAway();
     //assertion
     cy.get(Constants.AMOUNT_INPUT_PATH).should("have.value", "NaN");
   });
@@ -122,30 +113,26 @@ describe("Landing page tests for the amount field", () => {
     //input field should be empty
     cy.get(Constants.AMOUNT_INPUT_PATH).should("have.value", "");
 
-    //input - special characters between numbers in amount field
-    cy.get(Constants.AMOUNT_INPUT_PATH).type("200-96", {
-      force: true,
-    });
+    //add - special characters between numbers in amount field
+    cy.inputValue(Constants.AMOUNT_INPUT_PATH, "200-96");
     //click away
-    cy.get("body").click(0, 0);
+    cy.clickAway();
     //assertion
     cy.get(Constants.AMOUNT_INPUT_PATH).should("have.value", "200.00");
 
-    //input / special character in the amount input field
-    cy.get(Constants.AMOUNT_INPUT_PATH)
-      .clear({ force: true })
-      .type("800/7", { force: true });
+    //add / special character between numbers the amount input field
+    cy.inputValue(Constants.AMOUNT_INPUT_PATH, "800/7");
+
     //click away
-    cy.get("body").click(0, 0);
+    cy.clickAway();
     //assertion
     cy.get(Constants.AMOUNT_INPUT_PATH).should("have.value", "800.00");
 
-    //input number and string
-    cy.get(Constants.AMOUNT_INPUT_PATH)
-      .clear({ force: true })
-      .type("170string", { force: true });
+    //input number and string - first part as number then string
+    cy.inputValue(Constants.AMOUNT_INPUT_PATH, "170string");
+
     //click away
-    cy.get("body").click(0, 0);
+    cy.clickAway();
     //assertion
     cy.get(Constants.AMOUNT_INPUT_PATH).should("have.value", "170.00");
   });
@@ -154,21 +141,19 @@ describe("Landing page tests for the amount field", () => {
     //input field should be empty
     cy.get(Constants.AMOUNT_INPUT_PATH).should("have.value", "");
 
-    //user input
-    cy.get(Constants.AMOUNT_INPUT_PATH).type("200.023", {
-      force: true,
-    });
+    //user input with three decinals
+    cy.inputValue(Constants.AMOUNT_INPUT_PATH, "200.023");
+
     //click away
-    cy.get("body").click(0, 0);
+    cy.clickAway();
     //assertion
     cy.get(Constants.AMOUNT_INPUT_PATH).should("have.value", "200.02");
 
     //user input
-    cy.get(Constants.AMOUNT_INPUT_PATH)
-      .clear({ force: true })
-      .type("800.7895", { force: true });
+    cy.inputValue(Constants.AMOUNT_INPUT_PATH, "800.7895");
+
     //click away
-    cy.get("body").click(0, 0);
+    cy.clickAway();
     //assertion
     cy.get(Constants.AMOUNT_INPUT_PATH).should("have.value", "800.79");
   });
