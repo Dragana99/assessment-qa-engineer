@@ -1,3 +1,4 @@
+import "cypress-mochawesome-reporter/register";
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -23,3 +24,10 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add("clickAway", () => {
+  cy.get("body").click(0, 0);
+});
+
+Cypress.Commands.add("inputValue", (field, value) => {
+  cy.get(field).clear({ force: true }).type(value, { force: true });
+});
